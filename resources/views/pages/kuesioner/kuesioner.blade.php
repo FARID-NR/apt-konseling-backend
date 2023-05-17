@@ -114,194 +114,69 @@
     }
 </script>
 
-
-<div class="row">
-    <div class="col-md-6 mt-4">
+<div class="row justify-content-center">
+    <div class="col-md-5 mt-4">
         <div class="card">
-            <div class="card-header pb-0 px-3">
+            <div class="card-header pb-0 px-3 text-center">
                 <h6 class="mb-0">Informasi Kuesioner Diabetes Melitus</h6>
             </div>
             <div class="card-body pt-4 p-3">
                 <ul class="list-group">
                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                        <div class="d-flex flex-column">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title" id="question-title"></h5>
+                        <div class="row">
+                            @foreach ($dataDiabetes as $index => $item)
+                            <div class="card mt-3 w-100 mx-auto">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title" id="question-title">{{ $index + 1 }}. {{ $item['question'] }}</h5>
+                                    @foreach ($item['opsi'] as $opsiIndex => $opsi)
                                     <div class="form-check">
                                         <input class="form-check-input" type="hidden" name="option" id="option1" value="option1">
-                                        <label class="form-check-label" for="option1" id="option1-label"></label>
+                                        <label class="form-check-label" for="option1" id="option1-label">Opsi {{ $opsiIndex + 1 }}: {{ $opsi }}</label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="hidden" name="option" id="option2" value="option2">
-                                        <label class="form-check-label" for="option2" id="option2-label"></label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="hidden" name="option" id="option3" value="option3">
-                                        <label class="form-check-label" for="option3" id="option3-label"></label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="hidden" name="option" id="option4" value="option4">
-                                        <label class="form-check-label" for="option4" id="option4-label"></label>
+                                    @endforeach
+                                </div>
+                                <div style="position: absolute; bottom: 0; right: 0;">
+                                    <div class="d-inline-flex">
+                                        <a class="btn btn-link text-dark px-3 mb-0 align-self-start" data-toggle="modal" data-target="#ModalEdit" onclick="openEditModal('{{ $index }}')"><i class="material-icons text-sm me-2">edit</i>Edit</a>
+                                        <a class="btn btn-link text-danger text-gradient px-3 mb-0 align-self-end" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="ms-auto text-end">
-                            <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-                            <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">edit</i>Edit</a>
-                        </div>
-                    </li>
-                    <li class="list-group-item border-0 d-flex p-4 mb-2 mt-3 bg-gray-100 border-radius-lg">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" id="question-title"></h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option1" value="option1">
-                                    <label class="form-check-label" for="option1" id="option1-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option2" value="option2">
-                                    <label class="form-check-label" for="option2" id="option2-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option3" value="option3">
-                                    <label class="form-check-label" for="option3" id="option3-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option4" value="option4">
-                                    <label class="form-check-label" for="option4" id="option4-label"></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="ms-auto text-end">
-                            <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-                            <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">edit</i>Edit</a>
-                        </div>
-                    </li>
-                    <li class="list-group-item border-0 d-flex p-4 mb-2 mt-3 bg-gray-100 border-radius-lg">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" id="question-title"></h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option1" value="option1">
-                                    <label class="form-check-label" for="option1" id="option1-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option2" value="option2">
-                                    <label class="form-check-label" for="option2" id="option2-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option3" value="option3">
-                                    <label class="form-check-label" for="option3" id="option3-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option4" value="option4">
-                                    <label class="form-check-label" for="option4" id="option4-label"></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="ms-auto text-end">
-                            <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-                            <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">edit</i>Edit</a>
+                            @endforeach
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="col-md-6 mt-4">
+    <div class="col-md-5 mt-4">
         <div class="card">
-            <div class="card-header pb-0 px-3">
+            <div class="card-header pb-0 px-3 text-center">
                 <h6 class="mb-0">Informasi Kuesioner Hipertensi</h6>
             </div>
             <div class="card-body pt-4 p-3">
                 <ul class="list-group">
                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                        <div class="d-flex flex-column">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title" id="question-title"></h5>
+                        <div class="row">
+                            @foreach ($dataHipertensi as $index => $item)
+                            <div class="card mt-3 w-100 mx-auto">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title" id="question-title">{{ $index + 1 }}. {{ $item['question'] }}</h5>
+                                    @foreach ($item['opsi'] as $opsiIndex => $opsi)
                                     <div class="form-check">
                                         <input class="form-check-input" type="hidden" name="option" id="option1" value="option1">
-                                        <label class="form-check-label" for="option1" id="option1-label"></label>
+                                        <label class="form-check-label" for="option1" id="option1-label">Opsi {{ $opsiIndex + 1 }}: {{ $opsi }}</label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="hidden" name="option" id="option2" value="option2">
-                                        <label class="form-check-label" for="option2" id="option2-label"></label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="hidden" name="option" id="option3" value="option3">
-                                        <label class="form-check-label" for="option3" id="option3-label"></label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="hidden" name="option" id="option4" value="option4">
-                                        <label class="form-check-label" for="option4" id="option4-label"></label>
+                                    @endforeach
+                                </div>
+                                <div style="position: absolute; bottom: 0; right: 0;">
+                                    <div class="d-inline-flex">
+                                        <a class="btn btn-link text-dark px-3 mb-0 align-self-start" data-toggle="modal" data-target="#ModalEdit"><i class="material-icons text-sm me-2">edit</i>Edit</a>
+                                        <a class="btn btn-link text-danger text-gradient px-3 mb-0 align-self-end" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="ms-auto text-end">
-                            <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-                            <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">edit</i>Edit</a>
-                        </div>
-                    </li>
-                    <li class="list-group-item border-0 d-flex p-4 mb-2 mt-3 bg-gray-100 border-radius-lg">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" id="question-title"></h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option1" value="option1">
-                                    <label class="form-check-label" for="option1" id="option1-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option2" value="option2">
-                                    <label class="form-check-label" for="option2" id="option2-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option3" value="option3">
-                                    <label class="form-check-label" for="option3" id="option3-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option4" value="option4">
-                                    <label class="form-check-label" for="option4" id="option4-label"></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="ms-auto text-end">
-                            <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-                            <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">edit</i>Edit</a>
-                        </div>
-                    </li>
-                    <li class="list-group-item border-0 d-flex p-4 mb-2 mt-3 bg-gray-100 border-radius-lg">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" id="question-title"></h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option1" value="option1">
-                                    <label class="form-check-label" for="option1" id="option1-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option2" value="option2">
-                                    <label class="form-check-label" for="option2" id="option2-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option3" value="option3">
-                                    <label class="form-check-label" for="option3" id="option3-label"></label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="hidden" name="option" id="option4" value="option4">
-                                    <label class="form-check-label" for="option4" id="option4-label"></label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="ms-auto text-end">
-                            <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-                            <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i class="material-icons text-sm me-2">edit</i>Edit</a>
+                            @endforeach
                         </div>
                     </li>
                 </ul>
@@ -309,5 +184,55 @@
         </div>
     </div>
 </div>
-</div>
+
+@include('pages.kuesioner.modal.edit')
+
+<!-- <script>
+    function openEditModal(element) {
+        var index = element.getAttribute("data-index");
+
+        // Dapatkan data yang sesuai berdasarkan index
+        var data = dataHipertensi[index];
+
+        // Tampilkan data dalam modal
+        var modalTitle = document.getElementById("editModalLabel");
+        var questionTitle = document.getElementById("modal-question-title");
+        var optionsContainer = document.getElementById("modal-options-container");
+
+        // Setel judul modal
+        modalTitle.textContent = "Edit Question";
+
+        // Setel judul pertanyaan
+        questionTitle.textContent = (parseInt(index) + 1) + ". " + data.question;
+
+        // Hapus semua opsi yang ada sebelumnya
+        optionsContainer.innerHTML = "";
+
+        // Tambahkan opsi ke dalam modal
+        for (var i = 0; i < data.opsi.length; i++) {
+            var optionLabel = document.createElement("label");
+            optionLabel.setAttribute("for", "modal-option" + (i + 1));
+            optionLabel.classList.add("form-check-label");
+            optionLabel.textContent = "Opsi " + (i + 1) + ": " + data.opsi[i];
+
+            var optionInput = document.createElement("input");
+            optionInput.setAttribute("type", "hidden");
+            optionInput.setAttribute("name", "modal-option");
+            optionInput.setAttribute("id", "modal-option" + (i + 1));
+            optionInput.setAttribute("value", "option" + (i + 1));
+            optionInput.classList.add("form-check-input");
+
+            var formCheck = document.createElement("div");
+            formCheck.classList.add("form-check");
+            formCheck.appendChild(optionInput);
+            formCheck.appendChild(optionLabel);
+
+            optionsContainer.appendChild(formCheck);
+        }
+
+        // Tampilkan modal
+        var editModal = new bootstrap.Modal(document.getElementById("editModal"));
+        editModal.show();
+    }
+</script> -->
 @endsection

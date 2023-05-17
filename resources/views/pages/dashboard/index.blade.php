@@ -70,7 +70,7 @@
                 <div class="col-xl-6">
                     <div class="card h-100">
                         <div class="card-header pb-0">
-                            <h6>Orders overview</h6>
+                            <h6>User overview</h6>
                         </div>
                         <div class="card-body p-3">
                             <div class="timeline timeline-one-side">
