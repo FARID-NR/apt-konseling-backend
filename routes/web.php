@@ -27,6 +27,7 @@ Route::prefix('kuesioner')->group(function(){
     Route::get('/', [KuesionerController::class, 'kuesioner'])->name('kuesioner');
     Route::post('/', [KuesionerController::class, 'store'])->name('kuesioner.store');
     Route::get('/', [KuesionerController::class, 'read'])->name('kuesioner.read');
+    Route::post('/edit/{id}', [KuesionerController::class, 'update']);
 });
 
 // Route::get('/kuesioner', [KuesionerController::class, 'show']);

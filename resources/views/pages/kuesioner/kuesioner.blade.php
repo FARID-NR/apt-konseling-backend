@@ -60,36 +60,36 @@
         document.getElementById("optionsContainer").innerHTML = html;
     }
 
-    function submitForm() {
-        // Mengambil data dari formulir
-        var formData = {
-            questionType: $('select[name=questionType]').val(),
-            question: $('textarea[name=question]').val(),
-            opsi: $('input[name=opsi]').val()
-        };
+    // function submitForm() {
+    //     // Mengambil data dari formulir
+    //     var formData = {
+    //         questionType: $('select[name=questionType]').val(),
+    //         question: $('textarea[name=question]').val(),
+    //         opsi: $('input[name=opsi]').val()
+    //     };
 
-        // Mengirim permintaan Ajax untuk mengirim data ke server
-        $.ajax({
-            url: "{{ route('kuesioner.store') }}",
-            type: "POST",
-            data: formData,
-            success: function(response) {
-                // Tanggapan sukses (response) dari server
-                console.log(response);
-                // Lakukan tindakan lain yang diperlukan setelah pengiriman sukses
-            },
-            error: function(xhr) {
-                // Tanggapan gagal (error) dari server
-                console.log(xhr.responseText);
-                // Lakukan tindakan lain untuk menangani kesalahan
+    //     // Mengirim permintaan Ajax untuk mengirim data ke server
+    //     $.ajax({
+    //         url: "{{ route('kuesioner.store') }}",
+    //         type: "POST",
+    //         data: formData,
+    //         success: function(response) {
+    //             // Tanggapan sukses (response) dari server
+    //             console.log(response);
+    //             // Lakukan tindakan lain yang diperlukan setelah pengiriman sukses
+    //         },
+    //         error: function(xhr) {
+    //             // Tanggapan gagal (error) dari server
+    //             console.log(xhr.responseText);
+    //             // Lakukan tindakan lain untuk menangani kesalahan
 
-                // Mengosongkan formulir
-                document.getElementById("kuesionerForm").reset();
-            }
-        });
+    //             // Mengosongkan formulir
+    //             document.getElementById("kuesionerForm").reset();
+    //         }
+    //     });
 
-        event.preventDefault(); // Mencegah tindakan bawaan formulir yang akan memicu pengalihan halaman
-    }
+    //     event.preventDefault(); // Mencegah tindakan bawaan formulir yang akan memicu pengalihan halaman
+    // }
 
 
     function saveOptions() {
@@ -120,6 +120,11 @@
             <div class="card-header pb-0 px-3 text-center">
                 <h6 class="mb-0">Informasi Kuesioner Diabetes Melitus</h6>
             </div>
+            @if(session('successEditD'))
+                        <div class="alert alert-success">
+                            {{ session('successEditD') }}
+                        </div>
+                        @endif
             <div class="card-body pt-4 p-3">
                 <ul class="list-group">
                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
@@ -137,11 +142,12 @@
                                 </div>
                                 <div style="position: absolute; bottom: 0; right: 0;">
                                     <div class="d-inline-flex">
-                                        <a class="btn btn-link text-dark px-3 mb-0 align-self-start" data-toggle="modal" data-target="#ModalEdit" onclick="openEditModal('{{ $index }}')"><i class="material-icons text-sm me-2">edit</i>Edit</a>
+                                        <button class="btn btn-link text-dark px-3 mb-0 align-self-start" data-bs-toggle="modal" data-bs-target="{{'#ModalEdit'.$index}}"><i class="material-icons text-sm me-2">edit</i>Edit</button>
                                         <a class="btn btn-link text-danger text-gradient px-3 mb-0 align-self-end" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
                                     </div>
                                 </div>
                             </div>
+                            @include('pages.kuesioner.modal.edit')
                             @endforeach
                         </div>
                     </li>
@@ -154,6 +160,11 @@
             <div class="card-header pb-0 px-3 text-center">
                 <h6 class="mb-0">Informasi Kuesioner Hipertensi</h6>
             </div>
+            @if(session('successEdit'))
+                        <div class="alert alert-success">
+                            {{ session('successEdit') }}
+                        </div>
+                        @endif
             <div class="card-body pt-4 p-3">
                 <ul class="list-group">
                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
@@ -171,11 +182,12 @@
                                 </div>
                                 <div style="position: absolute; bottom: 0; right: 0;">
                                     <div class="d-inline-flex">
-                                        <a class="btn btn-link text-dark px-3 mb-0 align-self-start" data-toggle="modal" data-target="#ModalEdit"><i class="material-icons text-sm me-2">edit</i>Edit</a>
+                                        <button type="button" class="btn btn-link text-dark px-3 mb-0 align-self-start" data-bs-toggle="modal" data-bs-target="{{'#ModalEdit'.$index}}"><i class="material-icons text-sm me-2">edit</i>Edit</button>
                                         <a class="btn btn-link text-danger text-gradient px-3 mb-0 align-self-end" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
                                     </div>
                                 </div>
                             </div>
+                            @include('pages.kuesioner.modal.edit')
                             @endforeach
                         </div>
                     </li>
@@ -184,8 +196,6 @@
         </div>
     </div>
 </div>
-
-@include('pages.kuesioner.modal.edit')
 
 <!-- <script>
     function openEditModal(element) {

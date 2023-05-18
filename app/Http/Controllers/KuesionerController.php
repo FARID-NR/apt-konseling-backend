@@ -62,16 +62,88 @@ class KuesionerController extends Controller
         $dataHipertensi = [];
 
         foreach ($documentsDiabetes as $document) {
-            $dataDiabetes[] = $document->data();
+            $data = $document->data();
+            $data['id'] = $document->id();
+            $dataDiabetes[] = $data;
         }
 
         foreach ($documentsHipertensi as $document) {
-            $dataHipertensi[] = $document->data();
+            $data = $document->data();
+            $data['id'] = $document->id();
+            $dataHipertensi[] = $data;
         }
 
         return view('pages.kuesioner.kuesioner', compact('dataDiabetes', 'dataHipertensi'));
-        // return view('index')->with('data', $data);      
+        // return view('index')->with('data', $data);
     }
+
+    // public function update(Request $request, $id)
+    // {
+    //     $data = $request->all();
+
+    //     if ($request->input('questionType') == 'diabetes') {
+    //         $subCollection = $this->firestore->collection('Quiz')->document('Diabetes Melitus');
+    //     } else {
+    //         $subCollection = $this->firestore->collection('Quiz')->document('Hipertensi');
+    //     }
+
+
+
+    //     // Mengambil referensi dokumen berdasarkan ID yang dikirim
+    //     $documentRef = $subCollection->collection('QNA')->document($id);
+
+    //     // Memperbarui index array menjadi "opsi1", "opsi2", dst.
+    //     $opsi = $request->input('opsi'.$id);
+    //     $opsiFormatted = [];
+    //     foreach ($opsi as $index => $value) {
+    //         $opsiFormatted[($index)] = $value;
+    //     }
+
+    //     // Memperbarui dokumen dengan data yang baru
+    //     $documentRef->set([
+    //         'question' => $data['question'.$id],
+    //         'opsi' => $opsiFormatted,
+
+    //     ]);
+
+    //     return redirect()->back()->with('successEdit', 'Data berhasil di edit');
+    // }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $questionType = $request->input('questionType'. $id);
+
+        if ($questionType == 'diabetes') {
+            $collectionName = 'Diabetes Melitus';
+            $subCollectionName = 'QNA';
+        } else {
+            $collectionName = 'Hipertensi';
+            $subCollectionName = 'QNA';
+        }
+
+        // Mengambil referensi dokumen berdasarkan ID yang dikirim
+        $documentRef = $this->firestore->collection('Quiz')->document($collectionName)->collection($subCollectionName)->document($id);
+
+        // Memperbarui index array menjadi "opsi1", "opsi2", dst.
+        $opsi = $request->input('opsi' . $id);
+        $opsiFormatted = [];
+        foreach ($opsi as $index => $value) {
+            $opsiFormatted[($index)] = $value;
+        }
+
+        // Memperbarui dokumen dengan data yang baru
+        $documentRef->set([
+            'question' => $data['question' . $id],
+            'opsi' => $opsiFormatted,
+        ]);
+
+        return redirect()->back()->with('successEditD', 'Data berhasil di edit');
+        return redirect()->back()->with('successEdit', 'Data berhasil di edit');
+    }
+
+
+
 
     public function kuesioner()
     {
