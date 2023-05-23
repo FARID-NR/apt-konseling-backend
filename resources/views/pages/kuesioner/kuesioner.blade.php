@@ -120,9 +120,14 @@
             <div class="card-header pb-0 px-3 text-center">
                 <h6 class="mb-0">Informasi Kuesioner Diabetes Melitus</h6>
             </div>
-            @if(session('successEditD'))
+            @if(session('successEdit'))
                         <div class="alert alert-success">
-                            {{ session('successEditD') }}
+                            {{ session('successEdit') }}
+                        </div>
+                        @endif
+            @if(session('successDeleteD'))
+                        <div class="alert alert-success">
+                            {{ session('successDeleteD') }}
                         </div>
                         @endif
             <div class="card-body pt-4 p-3">
@@ -143,7 +148,7 @@
                                 <div style="position: absolute; bottom: 0; right: 0;">
                                     <div class="d-inline-flex">
                                         <button class="btn btn-link text-dark px-3 mb-0 align-self-start" data-bs-toggle="modal" data-bs-target="{{'#ModalEdit'.$index}}"><i class="material-icons text-sm me-2">edit</i>Edit</button>
-                                        <a class="btn btn-link text-danger text-gradient px-3 mb-0 align-self-end" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
+                                        <button class="btn btn-link text-danger text-gradient px-3 mb-0 align-self-end" onclick="window.location.href='{{ route('kuesioner.deletedD', ['id' => $item['id']]) }}'"><i class="material-icons text-sm me-2">delete</i>Delete</button>
                                     </div>
                                 </div>
                             </div>
@@ -160,11 +165,17 @@
             <div class="card-header pb-0 px-3 text-center">
                 <h6 class="mb-0">Informasi Kuesioner Hipertensi</h6>
             </div>
-            @if(session('successEdit'))
+            @if(session('successEditH'))
                         <div class="alert alert-success">
-                            {{ session('successEdit') }}
+                            {{ session('successEditH') }}
                         </div>
                         @endif
+            @if(session('successDelete'))
+                        <div class="alert alert-success">
+                            {{ session('successDelete') }}
+                        </div>
+                        @endif
+
             <div class="card-body pt-4 p-3">
                 <ul class="list-group">
                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
@@ -182,12 +193,12 @@
                                 </div>
                                 <div style="position: absolute; bottom: 0; right: 0;">
                                     <div class="d-inline-flex">
-                                        <button type="button" class="btn btn-link text-dark px-3 mb-0 align-self-start" data-bs-toggle="modal" data-bs-target="{{'#ModalEdit'.$index}}"><i class="material-icons text-sm me-2">edit</i>Edit</button>
-                                        <a class="btn btn-link text-danger text-gradient px-3 mb-0 align-self-end" href="javascript:;"><i class="material-icons text-sm me-2">delete</i>Delete</a>
+                                        <button type="button" class="btn btn-link text-dark px-3 mb-0 align-self-start" data-bs-toggle="modal" data-bs-target="{{'#ModalEditH'.$index}}"><i class="material-icons text-sm me-2">edit</i>Edit</button>
+                                        <button class="btn btn-link text-danger text-gradient px-3 mb-0 align-self-end" onclick="window.location.href='{{ route('kuesioner.deletedH', ['id' => $item['id']]) }}'"><i class="material-icons text-sm me-2">delete</i>Delete</button>
                                     </div>
                                 </div>
                             </div>
-                            @include('pages.kuesioner.modal.edit')
+                            @include('pages.kuesioner.modal.editH')
                             @endforeach
                         </div>
                     </li>

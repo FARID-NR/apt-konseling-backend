@@ -11,7 +11,7 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Doctor User</p>
-                                <h4 class="mb-0">0</h4>
+                                <h4 class="mb-0">{{$doctorCount}}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -25,8 +25,8 @@
                                 <i class="material-icons opacity-10">weekend</i>
                             </div>
                             <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Pra Test</p>
-                                <h4 class="mb-0">0</h4>
+                                <p class="text-sm mb-0 text-capitalize">User Online</p>
+                                <h4 class="mb-0">{{$statusTrue}}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -43,7 +43,7 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Patient User</p>
-                                <h4 class="mb-0">0</h4>
+                                    <h4 class="mb-0">{{$patientCount}}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -57,8 +57,8 @@
                                 <i class="material-icons opacity-10">weekend</i>
                             </div>
                             <div class="text-end pt-1">
-                                <p class="text-sm mb-0 text-capitalize">Final Test</p>
-                                <h4 class="mb-0">0</h4>
+                                <p class="text-sm mb-0 text-capitalize">User Offline</p>
+                                <h4 class="mb-0">{{$statusFalse}}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -70,64 +70,26 @@
                 <div class="col-xl-6">
                     <div class="card h-100">
                         <div class="card-header pb-0">
-                            <h6>User overview</h6>
+                            <h6>New Users</h6>
                         </div>
                         <div class="card-body p-3">
-                            <div class="timeline timeline-one-side">
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons opacity-10">person</i>
-                                    </span>
+                            <div class="timeline timeline-one-side col">
+                                @foreach (collect($dataUsers)->sortByDesc('createAt')->take(10) as $item)
+                                <div class="timeline-block mb-3 d-flex align-items-center">
+                                    <div class="timeline-step">
+                                        @if ($item['photo'])
+                                            <img src="{{ $item['photo'] }}" class="rounded-circle ratio ratio-1x1" style="object-fit: cover; width: 100%; height: 100%;">
+                                        @else
+                                            <img src="{{ asset('assets/img/person.png') }}" class="rounded-circle ratio ratio-1x1" style="object-fit: cover; width: 100%; height: 100%;">
+                                        @endif
+                                    </div>
                                     <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Nama User</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
+                                        <h6 class="text-dark text-sm font-weight-bold mb-0">{{ $item['fullName'] }}</h6>
+                                        {{-- <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ date('H:i, d M Y', strtotime($item['createAt'])) }}</p> --}}
+                                        <span class="text-secondary text-xs font-weight-bold">{{$item['createAt']}}</span>
                                     </div>
                                 </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                    <i class="material-icons opacity-10">person</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Nama User</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 11 PM</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons opacity-10">person</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Nama User</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 9:34 PM</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons opacity-10">person</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Nama User</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEC 2:20 AM</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block mb-3">
-                                    <span class="timeline-step">
-                                        <i class="material-icons opacity-10">person</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Nama User</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEC 4:54 AM</p>
-                                    </div>
-                                </div>
-                                <div class="timeline-block">
-                                    <span class="timeline-step">
-                                        <i class="material-icons opacity-10">person</i>
-                                    </span>
-                                    <div class="timeline-content">
-                                        <h6 class="text-dark text-sm font-weight-bold mb-0">Nama User</h6>
-                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC 2:24 AM</p>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

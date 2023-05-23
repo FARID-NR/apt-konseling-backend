@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\KuesionerController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\userController;
 use App\Services\Firebase;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,18 +20,32 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('pages.dashboard.index');
-})->name('index');
+Route::get('login', [LoginController::class, 'login'])->name('login');
 
-
-
+Route::get('/', [DasboardController::class, 'dashboard'])->name('dashboard');
 
 Route::prefix('kuesioner')->group(function(){
     Route::get('/', [KuesionerController::class, 'kuesioner'])->name('kuesioner');
     Route::post('/', [KuesionerController::class, 'store'])->name('kuesioner.store');
     Route::get('/', [KuesionerController::class, 'read'])->name('kuesioner.read');
     Route::post('/edit/{id}', [KuesionerController::class, 'update']);
+    Route::post('/editH/{id}', [KuesionerController::class, 'updateH']);
+    Route::get('/deletedH/{id}', [KuesionerController::class, 'deletedH'])->name('kuesioner.deletedH');
+    Route::get('/deletedD/{id}', [KuesionerController::class, 'deletedD'])->name('kuesioner.deletedD');
+});
+
+
+Route::prefix('user')->group(function(){
+    Route::get('/', [userController::class, 'read'])->name('user.read');
+    Route::get('/export/{userId}', [userController::class, 'export'])->name('user.export');
+});
+
+// Route::get('/kuesioner', function () {
+//     return view('pages.kuesioner.kuesioner');
+// });
+
+Route::get('/view_answer', function () {
+    return view('pages.view_answer.view_answer');
 });
 
 // Route::get('/kuesioner', [KuesionerController::class, 'show']);
@@ -60,15 +78,3 @@ Route::prefix('kuesioner')->group(function(){
 //         'Opsi' => 20
 //     ]);
 // });
-
-Route::get('/user', function () {
-    return view('pages.user.users');
-});
-
-// Route::get('/kuesioner', function () {
-//     return view('pages.kuesioner.kuesioner');
-// });
-
-Route::get('/view_answer', function () {
-    return view('pages.view_answer.view_answer');
-});
