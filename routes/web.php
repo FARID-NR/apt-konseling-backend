@@ -4,6 +4,7 @@ use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\userController;
+use App\Http\Middleware\Authenticate;
 use App\Services\Firebase;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -19,62 +20,100 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
-Route::get('login', [LoginController::class, 'login'])->name('login');
+// Route::middleware(['web', 'guest'])->group(function () {
+//     // Rute untuk menampilkan halaman login
+//     Route::get('/', [LoginController::class, 'showLogin'])->name('showLogin');
+//     Route::post('/', [LoginController::class, 'checkUser'])->name('checkUser');
 
-Route::get('/', [DasboardController::class, 'dashboard'])->name('dashboard');
-
-Route::prefix('kuesioner')->group(function(){
-    Route::get('/', [KuesionerController::class, 'kuesioner'])->name('kuesioner');
-    Route::post('/', [KuesionerController::class, 'store'])->name('kuesioner.store');
-    Route::get('/', [KuesionerController::class, 'read'])->name('kuesioner.read');
-    Route::post('/edit/{id}', [KuesionerController::class, 'update']);
-    Route::post('/editH/{id}', [KuesionerController::class, 'updateH']);
-    Route::get('/deletedH/{id}', [KuesionerController::class, 'deletedH'])->name('kuesioner.deletedH');
-    Route::get('/deletedD/{id}', [KuesionerController::class, 'deletedD'])->name('kuesioner.deletedD');
-});
-
-
-Route::prefix('user')->group(function(){
-    Route::get('/', [userController::class, 'read'])->name('user.read');
-    Route::get('/export/{userId}', [userController::class, 'export'])->name('user.export');
-});
-
-// Route::get('/kuesioner', function () {
-//     return view('pages.kuesioner.kuesioner');
+//     // Route::get('/dashboard', [DasboardController::class, 'dashboard'])->name('dashboard');
+//     // Rute untuk halaman dashboard
+//     // Route::get('/', [DasboardController::class, 'dashboard'])->name('dashboard');
 // });
 
-Route::get('/view_answer', function () {
-    return view('pages.view_answer.view_answer');
-});
+// Route::middleware(['web'])->group(function () {
+//     // Rute untuk menampilkan halaman login
+//     Route::get('/', [LoginController::class, 'showLogin'])->name('showLogin');
+//     Route::post('/', [LoginController::class, 'checkUser'])->name('checkUser');
 
-// Route::get('/kuesioner', [KuesionerController::class, 'show']);
-
-// Route::get('/insert', function() {
-//     $stuRef = app('firebase.firestore')->database()->collection('Testing_crud')->newDocument();
-//     $stuRef->set([
-//         'firstname' => 'Chou',
-//         'lastname' => 'NR',
-//         'age' => 19
-//     ]);
+//     // Rute untuk halaman dashboard
+//     Route::middleware(['auth:dashboard'])->group(function () {
+//         Route::get('/dashboard', function () {
+//             return view('dashboard');
+//         })->name('dashboard');
+//     });
 // });
 
-// Route::get('/insert', function() {
-//     $firestore = app('firebase.firestore');
 
-//     $testingCrudRef = $firestore->database()->collection('Testing_crud')->newDocument();
 
-//     // Tambahkan data ke koleksi pra_quiz di dalam Testing_crud
-//     $praQuizRef = $testingCrudRef->collection('Diabetes Melitus')->newDocument();
-//     $praQuizRef->set([
-//         'Pertanyaan' => 'a',
-//         'Opsi' => 17
-//     ]);
+    Route::get('/', [LoginController::class, 'showLogin'])->name('login');
+    Route::post('/', [LoginController::class, 'checkUser'])->name('checkUser');
 
-//     // Tambahkan data ke koleksi  di dalam Testing_crud
-//     $finalQuizRef = $testingCrudRef->collection('Hipertensi')->newDocument();
-//     $finalQuizRef->set([
-//         'Pertanyaan Opsi' => 'b',
-//         'Opsi' => 20
-//     ]);
+
+// Route::prefix('/')->group(function(){
+//     Route::get('dashboard', [DasboardController::class, 'dashboard'])->name('dashboard');
+// });
+
+// Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::middleware([])->group(function(){
+
+    Route::get('dashboard', [DasboardController::class, 'dashboard'])->name('dashboard');
+
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::prefix('kuesioner')->group(function(){
+        Route::get('/', [KuesionerController::class, 'kuesioner'])->name('kuesioner');
+        Route::post('/', [KuesionerController::class, 'store'])->name('kuesioner.store');
+        Route::get('/', [KuesionerController::class, 'read'])->name('kuesioner.read');
+        Route::post('/edit/{id}', [KuesionerController::class, 'update']);
+        Route::post('/editH/{id}', [KuesionerController::class, 'updateH']);
+        Route::get('/deletedH/{id}', [KuesionerController::class, 'deletedH'])->name('kuesioner.deletedH');
+        Route::get('/deletedD/{id}', [KuesionerController::class, 'deletedD'])->name('kuesioner.deletedD');
+    });
+
+
+    Route::prefix('user')->group(function(){
+        Route::get('/', [userController::class, 'read'])->name('user.read');
+        Route::get('/export/{userId}', [userController::class, 'export'])->name('user.export');
+    });
+
+
+    Route::get('/view_answer', function () {
+        return view('pages.view_answer.view_answer');
+    });
+});
+
+
+
+
+// Route::get('/', [LoginController::class, 'showLogin'])->name('login');
+// Route::post('/', [LoginController::class, 'checkUser'])->name('checkUser');
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/dashboard', [DasboardController::class, 'dashboard'])->name('dashboard');
+//     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+//     Route::prefix('kuesioner')->group(function () {
+//         Route::get('/', [KuesionerController::class, 'kuesioner'])->name('kuesioner');
+//         Route::post('/', [KuesionerController::class, 'store'])->name('kuesioner.store');
+//         Route::get('/read', [KuesionerController::class, 'read'])->name('kuesioner.read');
+//         Route::post('/edit/{id}', [KuesionerController::class, 'update'])->name('kuesioner.update');
+//         Route::post('/editH/{id}', [KuesionerController::class, 'updateH'])->name('kuesioner.updateH');
+//         Route::get('/deletedH/{id}', [KuesionerController::class, 'deletedH'])->name('kuesioner.deletedH');
+//         Route::get('/deletedD/{id}', [KuesionerController::class, 'deletedD'])->name('kuesioner.deletedD');
+//     });
+
+//     Route::prefix('user')->group(function () {
+//         Route::get('/', [UserController::class, 'read'])->name('user.read');
+//         Route::get('/export/{userId}', [UserController::class, 'export'])->name('user.export');
+//     });
+
+//     Route::get('/view_answer', function () {
+//         return view('pages.view_answer.view_answer');
+//     })->name('view_answer');
 // });

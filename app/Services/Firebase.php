@@ -2,8 +2,10 @@
 
 namespace App\Services;
 use Kreait\Firebase\Factory;
+use Kreait\Firebase\Auth\SignIn\FailedToSignIn;
+use Kreait\Firebase\Exception\FirebaseException;
 
-class Firebase 
+class Firebase
 {
     public $firebase;
     public $auth;

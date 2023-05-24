@@ -26,5 +26,11 @@ class RedirectIfAuthenticated
         }
 
         return $next($request);
+
+        // if (Auth::guard($guards)->check()) {
+        //     return redirect('/dashboard'); // Ganti '/dashboard' dengan halaman tujuan setelah berhasil login
+        // }
+
+        // return $next($request);
     }
 }

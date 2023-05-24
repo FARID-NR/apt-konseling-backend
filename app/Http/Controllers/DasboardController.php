@@ -8,10 +8,13 @@ use Illuminate\Http\Request;
 class DasboardController extends Controller
 {
     protected $firestore;
+    public $auth;
 
     public function __construct()
     {
         $this->firestore = (new Firebase)->firestoreDb;
+        $this->auth = (new Firebase)->auth;
+        $this->middleware('auth');
     }
 
     public function dashboard(Request $request)

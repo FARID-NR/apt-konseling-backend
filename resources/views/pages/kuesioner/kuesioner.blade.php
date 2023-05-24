@@ -135,26 +135,29 @@
                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                         <div class="row">
                             @foreach ($dataDiabetes as $index => $item)
-                            <div class="card mt-3 w-100 mx-auto">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title" id="question-title">{{ $index + 1 }}. {{ $item['question'] }}</h5>
-                                    @foreach ($item['opsi'] as $opsiIndex => $opsi)
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="hidden" name="option" id="option1" value="option1">
-                                        <label class="form-check-label" for="option1" id="option1-label">Opsi {{ $opsiIndex + 1 }}: {{ $opsi }}</label>
+                                <div class="card mt-3 w-100 mx-auto">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title" id="question-title">{{ $index + 1 }}. {{ $item['question'] }}</h5>
+                                        @if (isset($item['opsi']) && is_array($item['opsi']))
+                                            @foreach ($item['opsi'] as $opsiIndex => $opsi)
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="hidden" name="option" id="option1" value="option1">
+                                                    <label class="form-check-label" for="option1" id="option1-label">Opsi {{ $opsiIndex + 1 }}: {{ $opsi }}</label>
+                                                </div>
+                                            @endforeach
+                                        @endif
                                     </div>
-                                    @endforeach
-                                </div>
-                                <div style="position: absolute; bottom: 0; right: 0;">
-                                    <div class="d-inline-flex">
-                                        <button class="btn btn-link text-dark px-3 mb-0 align-self-start" data-bs-toggle="modal" data-bs-target="{{'#ModalEdit'.$index}}"><i class="material-icons text-sm me-2">edit</i>Edit</button>
-                                        <button class="btn btn-link text-danger text-gradient px-3 mb-0 align-self-end" onclick="window.location.href='{{ route('kuesioner.deletedD', ['id' => $item['id']]) }}'"><i class="material-icons text-sm me-2">delete</i>Delete</button>
+                                    <div style="position: absolute; bottom: 0; right: 0;">
+                                        <div class="d-inline-flex">
+                                            <button class="btn btn-link text-dark px-3 mb-0 align-self-start" data-bs-toggle="modal" data-bs-target="{{'#ModalEdit'.$index}}"><i class="material-icons text-sm me-2">edit</i>Edit</button>
+                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0 align-self-end" onclick="window.location.href='{{ route('kuesioner.deletedD', ['id' => $item['id']]) }}'"><i class="material-icons text-sm me-2">delete</i>Delete</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            @include('pages.kuesioner.modal.edit')
+                                @include('pages.kuesioner.modal.edit')
                             @endforeach
                         </div>
+
                     </li>
                 </ul>
             </div>
