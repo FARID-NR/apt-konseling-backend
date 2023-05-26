@@ -21,16 +21,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                return redirect('/dashboard');
             }
         }
 
         return $next($request);
-
-        // if (Auth::guard($guards)->check()) {
-        //     return redirect('/dashboard'); // Ganti '/dashboard' dengan halaman tujuan setelah berhasil login
-        // }
-
-        // return $next($request);
     }
 }

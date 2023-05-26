@@ -50,9 +50,9 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                @if (Session::has('error'))
+                                @if (Session::has('pesan-danger'))
                                     <div class="alert alert-danger">
-                                        {{ Session::get('error') }}
+                                        {{ Session::get('pesan-danger') }}
                                     </div>
                                 @endif
                                 <form action="{{ route('checkUser') }}" method="POST" role="form"

@@ -56,9 +56,9 @@ class DasboardController extends Controller
                 $doctorCount++;
             }
 
-            if ($userType === 'true') {
+            if ($status === true) {
                 $statusTrue++;
-            } elseif ($userType === 'false') {
+            } else {
                 $statusFalse++;
             }
         }

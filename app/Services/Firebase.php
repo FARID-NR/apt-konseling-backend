@@ -4,6 +4,8 @@ namespace App\Services;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Auth\SignIn\FailedToSignIn;
 use Kreait\Firebase\Exception\FirebaseException;
+use Google\Cloud\Firestore\QuerySnapshot;
+
 
 class Firebase
 {

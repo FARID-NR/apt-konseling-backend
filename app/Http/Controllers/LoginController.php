@@ -14,59 +14,26 @@ use \App\Http\Middleware\Authenticate;
 
 class LoginController extends Controller
 {
-
-    public $auth;
-
-    public function __construct()
+    public function login()
     {
-        $this->auth = (new Firebase)->auth;
+        return view('pages.login.login');
     }
 
-    public function checkUser(Request $request)
+    public function login_action(Request $request)
     {
-        $email = $request->input('email');
-        $password = $request->input('password');
 
-        try {
-            $signInResult = $this->auth->signInWithEmailAndPassword($email, $password);
-            $user = $signInResult->data();
-
-            // Login berhasil, alihkan pengguna ke halaman dashboard
-            if (auth()->check()) {
-                return redirect()->route('dashboard'); // Ubah 'dashboard' sesuai dengan nama rute dashboard Anda
-            }
-        } catch (FailedToSignIn $e) {
-            // Email atau kata sandi tidak valid
-            Session::flash('error', 'Email atau password tidak sesuai.');
-            return redirect()->back();
-        } catch (FirebaseException $e) {
-            // Tangani error lainnya
-            Session::flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
-            return redirect()->back();
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                return redirect('/dashboard');
         }
-        return redirect()->route('dashboard')->with('success', 'Admin Signed In Successfully!');
+        return back()->with('pesan-danger', 'Username atau Password anda salah');
     }
-
 
     public function logout(Request $request)
     {
-        Auth::logout(); // Melakukan proses logout
-
-        return redirect()->route('login')->with('message', 'Anda telah berhasil logout.'); // Mengarahkan pengguna kembali ke halaman login
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 
-    public function showLogin()
-    {
-        if (auth()->check()) {
-            // Pengguna sudah login, alihkan ke halaman dashboard
-            return redirect()->route('dashboard');
-        }
-
-        // Pengguna belum login, tampilkan halaman login
-        return response()
-            ->view('pages.login.login')
-            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
-            ->header('Pragma', 'no-cache')
-            ->header('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
-    }
 }

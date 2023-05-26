@@ -20,47 +20,12 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
 
-// Route::middleware(['web', 'guest'])->group(function () {
-//     // Rute untuk menampilkan halaman login
-//     Route::get('/', [LoginController::class, 'showLogin'])->name('showLogin');
-//     Route::post('/', [LoginController::class, 'checkUser'])->name('checkUser');
-
-//     // Route::get('/dashboard', [DasboardController::class, 'dashboard'])->name('dashboard');
-//     // Rute untuk halaman dashboard
-//     // Route::get('/', [DasboardController::class, 'dashboard'])->name('dashboard');
-// });
-
-// Route::middleware(['web'])->group(function () {
-//     // Rute untuk menampilkan halaman login
-//     Route::get('/', [LoginController::class, 'showLogin'])->name('showLogin');
-//     Route::post('/', [LoginController::class, 'checkUser'])->name('checkUser');
-
-//     // Rute untuk halaman dashboard
-//     Route::middleware(['auth:dashboard'])->group(function () {
-//         Route::get('/dashboard', function () {
-//             return view('dashboard');
-//         })->name('dashboard');
-//     });
-// });
+Route::get('/', [LoginController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/', [LoginController::class, 'login_action'])->name('checkUser');
 
 
-
-    Route::get('/', [LoginController::class, 'showLogin'])->name('login');
-    Route::post('/', [LoginController::class, 'checkUser'])->name('checkUser');
-
-
-// Route::prefix('/')->group(function(){
-//     Route::get('dashboard', [DasboardController::class, 'dashboard'])->name('dashboard');
-// });
-
-// Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-Route::middleware([])->group(function(){
+Route::middleware(['auth'])->group(function(){
 
     Route::get('dashboard', [DasboardController::class, 'dashboard'])->name('dashboard');
 
@@ -87,33 +52,3 @@ Route::middleware([])->group(function(){
         return view('pages.view_answer.view_answer');
     });
 });
-
-
-
-
-// Route::get('/', [LoginController::class, 'showLogin'])->name('login');
-// Route::post('/', [LoginController::class, 'checkUser'])->name('checkUser');
-
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/dashboard', [DasboardController::class, 'dashboard'])->name('dashboard');
-//     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-//     Route::prefix('kuesioner')->group(function () {
-//         Route::get('/', [KuesionerController::class, 'kuesioner'])->name('kuesioner');
-//         Route::post('/', [KuesionerController::class, 'store'])->name('kuesioner.store');
-//         Route::get('/read', [KuesionerController::class, 'read'])->name('kuesioner.read');
-//         Route::post('/edit/{id}', [KuesionerController::class, 'update'])->name('kuesioner.update');
-//         Route::post('/editH/{id}', [KuesionerController::class, 'updateH'])->name('kuesioner.updateH');
-//         Route::get('/deletedH/{id}', [KuesionerController::class, 'deletedH'])->name('kuesioner.deletedH');
-//         Route::get('/deletedD/{id}', [KuesionerController::class, 'deletedD'])->name('kuesioner.deletedD');
-//     });
-
-//     Route::prefix('user')->group(function () {
-//         Route::get('/', [UserController::class, 'read'])->name('user.read');
-//         Route::get('/export/{userId}', [UserController::class, 'export'])->name('user.export');
-//     });
-
-//     Route::get('/view_answer', function () {
-//         return view('pages.view_answer.view_answer');
-//     })->name('view_answer');
-// });

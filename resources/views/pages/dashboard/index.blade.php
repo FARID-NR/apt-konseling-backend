@@ -85,8 +85,8 @@
                                     </div>
                                     <div class="timeline-content">
                                         <h6 class="text-dark text-sm font-weight-bold mb-0">{{ $item['fullName'] }}</h6>
-                                        {{-- <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ date('H:i, d M Y', strtotime($item['createAt'])) }}</p> --}}
-                                        <span class="text-secondary text-xs font-weight-bold">{{$item['createAt']}}</span>
+                                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ date('H:i, d M Y', strtotime($item['createAt'])) }}</p>
+                                        {{-- <span class="text-secondary text-xs font-weight-bold">{{$item['createAt']}}</span> --}}
                                     </div>
                                 </div>
                                 @endforeach
