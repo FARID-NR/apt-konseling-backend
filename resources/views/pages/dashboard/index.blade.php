@@ -24,9 +24,9 @@
                             <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
                                 <i class="material-icons opacity-10">weekend</i>
                             </div>
-                            <div class="text-end pt-1">
+                            <div class="text-end pt-1" id="userList">
                                 <p class="text-sm mb-0 text-capitalize">User Online</p>
-                                <h4 class="mb-0">{{$statusTrue}}</h4>
+                                <h4 class="mb-0" id="userOnline">{{$statusTrue}}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -58,7 +58,7 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">User Offline</p>
-                                <h4 class="mb-0">{{$statusFalse}}</h4>
+                                <h4 class="mb-0" id="userOffline">{{$statusFalse}}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -72,7 +72,7 @@
                         <div class="card-header pb-0">
                             <h6>New Users</h6>
                         </div>
-                        <div class="card-body p-3">
+                        <div class="card-body p-3" id="userList">
                             <div class="timeline timeline-one-side col">
                                 @foreach (collect($dataUsers)->sortByDesc('createAt')->take(10) as $item)
                                 <div class="timeline-block mb-3 d-flex align-items-center">
@@ -96,4 +96,40 @@
                 </div>
             </div>
         </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                setInterval(function() {
+                    $.ajax({
+                        url: '{{ route("get.data") }}',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            // Memperbarui jumlah pengguna online
+                            var userOnline = response.statusTrue;
+                            $('#userOnline').text(userOnline);
+
+                            // Memperbarui jumlah pengguna offline
+                            var userOffline = response.statusFalse;
+                            $('#userOffline').text(userOffline);
+
+                            console.log(userOnline);
+                            console.log(userOffline);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }, 3000); // Memuat data setiap 3 detik (3000 ms)
+            });
+        </script>
+
+
+
+        {{-- <script>
+            setTimeout(function() {
+                location.reload();
+            }, 5000);
+        </script> --}}
 @endsection

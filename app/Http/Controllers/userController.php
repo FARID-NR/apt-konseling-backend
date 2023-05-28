@@ -77,67 +77,64 @@ class userController extends Controller
         return view('pages.user.users', compact('patientUsers', 'doctorUsers'));
     }
 
-//     public function read(Request $request)
-// {
-//     $firestore = app(Firestore::class);
-//     $collectionRef = $firestore->collection('users');
+    public function getData(Request $request)
+    {
+        $collectUsers = $this->firestore->collection('users');
+        $documentUsers = $collectUsers->documents();
 
-//     // Memonitor perubahan data pada koleksi 'users'
-//     $collectionRef->limit(100)->orderBy('fullName')->onSnapshot(function (QuerySnapshot $snapshot) {
-//         $patientUsers = [];
-//         $doctorUsers = [];
+        $patientUsers = [];
+        $doctorUsers = [];
 
-//         foreach ($snapshot->documents() as $document) {
-//             $userData = $document->data();
+        foreach ($documentUsers as $document) {
+            $userData = $document->data();
 
-//             // Lakukan pembaruan data pengguna berdasarkan perubahan yang diterima
-//             $email = $userData['email'] ?? null;
-//             $lastTime = $userData['lastTime'] ?? null;
-//             $fullName = $userData['fullName'] ?? null;
-//             $photo = $userData['photo'] ?? null;
-//             $userType = $userData['type'] ?? null;
-//             $status = $userData['status'] ?? null;
-//             $spesialis = $userData['spesialis'] ?? null;
-//             $createAt = $userData['createAt'] ?? null;
-//             $noTelpon = $userData['noTelpon'] ?? null;
-//             $pekerjaan = $userData['pekerjaan'] ?? null;
+            // Retrieve the values of email, fullname, and photo fields
+            $email = $userData['email'] ?? null;
+            $lastTime = $userData['lastTime'] ?? null;
+            $fullName = $userData['fullName'] ?? null;
+            $photo = $userData['photo'] ?? null;
+            $userType = $userData['type'] ?? null;
+            $status = $userData['status'] ?? null;
+            $spesialis = $userData['spesialis'] ?? null;
+            $createAt = $userData['createAt'] ?? null;
+            $noTelpon = $userData['noTelpon'] ?? null;
+            $pekerjaan = $userData['pekerjaan'] ?? null;
 
-//             // Tambahkan pengguna ke array sesuai dengan tipe pengguna
-//             if ($userType === 'patient') {
-//                 $patientUsers[] = [
-//                     'email' => $email,
-//                     'lastTime' => $lastTime,
-//                     'fullName' => $fullName,
-//                     'photo' => $photo,
-//                     'type' => $userType,
-//                     'status' => $status,
-//                     'spesialis' => $spesialis,
-//                     'createAt' => $createAt,
-//                     'noTelpon' => $noTelpon,
-//                     'pekerjaan' => $pekerjaan
-//                 ];
-//             } elseif ($userType === 'doctor') {
-//                 $doctorUsers[] = [
-//                     'email' => $email,
-//                     'lastTime' => $lastTime,
-//                     'fullName' => $fullName,
-//                     'photo' => $photo,
-//                     'type' => $userType,
-//                     'status' => $status,
-//                     'spesialis' => $spesialis,
-//                     'createAt' => $createAt,
-//                     'noTelpon' => $noTelpon,
-//                     'pekerjaan' => $pekerjaan
-//                 ];
-//             }
-//         }
 
-//         // Update tampilan Anda dengan data pengguna yang diperbarui
-//         // ...
-//     });
+            if ($userType === 'patient') {
+                $patientUsers[] = [
+                    'email' => $email,
+                    'lastTime' => $lastTime,
+                    'fullName' => $fullName,
+                    'photo' => $photo,
+                    'type' => $userType,
+                    'status' => $status,
+                    'spesialis' => $spesialis,
+                    'createAt' => $createAt,
+                    'noTelpon' => $noTelpon,
+                    'pekerjaan' => $pekerjaan
+                ];
+            } elseif ($userType === 'doctor') {
+                $doctorUsers[] = [
+                    'email' => $email,
+                    'lastTime' => $lastTime,
+                    'fullName' => $fullName,
+                    'photo' => $photo,
+                    'type' => $userType,
+                    'status' => $status,
+                    'spesialis' => $spesialis,
+                    'createAt' => $createAt,
+                    'noTelpon' => $noTelpon,
+                    'pekerjaan' => $pekerjaan
+                ];
+            }
+        }
 
-//     return view('pages.user.users', compact('patientUsers', 'doctorUsers'));
-// }
+        return response()->json([
+            'pasien' => $patientUsers,
+            'dokter' => $doctorUsers,
+        ]);
+    }
 
 
     public function export($userId)

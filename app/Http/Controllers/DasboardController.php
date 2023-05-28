@@ -65,4 +65,56 @@ class DasboardController extends Controller
 
         return view('pages.dashboard.index', compact('dataUsers', 'patientCount', 'doctorCount', 'statusFalse', 'statusTrue'));
     }
+
+    public function getData()
+    {
+        $collectionUsers = $this->firestore->collection('users');
+        $documentUsers = $collectionUsers->documents();
+
+        // $dataUsers = [];
+        // $patientCount = 0;
+        // $doctorCount = 0;
+        $statusFalse = 0;
+        $statusTrue = 0;
+
+        foreach ($documentUsers as $document) {
+            $userData = $document->data();
+
+            // Retrieve the values of email, fullname, and photo fields
+            // $email = $userData['email'] ?? null;
+            // $lastTime = $userData['lastTime'] ?? null;
+            // $fullName = $userData['fullName'] ?? null;
+            // $photo = $userData['photo'] ?? null;
+            // $userType = $userData['type'] ?? null;
+            $status = $userData['status'] ?? null;
+            // $createAt = $userData['createAt'] ?? null;
+
+            // $dataUsers[] = [
+            //     // 'email' => $email,
+            //     // 'lastTime' => $lastTime,
+            //     // 'fullName' => $fullName,
+            //     // 'photo' => $photo,
+            //     // 'type' => $userType,
+            //     'status' => $status,
+            //     // 'createAt' => $createAt,
+            // ];
+
+            // if ($userType === 'patient') {
+            //     $patientCount++;
+            // } elseif ($userType === 'doctor') {
+            //     $doctorCount++;
+            // }
+
+            if ($status === true) {
+                $statusTrue++;
+            } else {
+                $statusFalse++;
+            }
+        }
+
+        return response()->json([
+            'statusTrue' => $statusTrue,
+            'statusFalse' => $statusFalse,
+        ]);
+    }
 }

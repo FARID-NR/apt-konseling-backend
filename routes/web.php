@@ -28,6 +28,7 @@ Route::post('/', [LoginController::class, 'login_action'])->name('checkUser');
 Route::middleware(['auth'])->group(function(){
 
     Route::get('dashboard', [DasboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/get-data', [DasboardController::class, 'getData'])->name('get.data');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -44,6 +45,7 @@ Route::middleware(['auth'])->group(function(){
 
     Route::prefix('user')->group(function(){
         Route::get('/', [userController::class, 'read'])->name('user.read');
+        Route::get('/data-online', [userController::class, 'getData']);
         Route::get('/export/{userId}', [userController::class, 'export'])->name('user.export');
     });
 
