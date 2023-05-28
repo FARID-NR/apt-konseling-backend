@@ -32,6 +32,9 @@ class userController extends Controller
         foreach ($documentUsers as $document) {
             $userData = $document->data();
 
+            // Retrieve the document ID
+            $userId = $document->id();
+
             // Retrieve the values of email, fullname, and photo fields
             $email = $userData['email'] ?? null;
             $lastTime = $userData['lastTime'] ?? null;
@@ -47,6 +50,7 @@ class userController extends Controller
 
             if ($userType === 'patient') {
                 $patientUsers[] = [
+                    'id' => $userId,
                     'email' => $email,
                     'lastTime' => $lastTime,
                     'fullName' => $fullName,
@@ -60,6 +64,7 @@ class userController extends Controller
                 ];
             } elseif ($userType === 'doctor') {
                 $doctorUsers[] = [
+                    'id' => $userId,
                     'email' => $email,
                     'lastTime' => $lastTime,
                     'fullName' => $fullName,
@@ -82,59 +87,27 @@ class userController extends Controller
         $collectUsers = $this->firestore->collection('users');
         $documentUsers = $collectUsers->documents();
 
-        $patientUsers = [];
-        $doctorUsers = [];
+        $userStatus = [
+            'patient' => [],
+            'doctor' => [],
+        ];
 
         foreach ($documentUsers as $document) {
             $userData = $document->data();
 
-            // Retrieve the values of email, fullname, and photo fields
-            $email = $userData['email'] ?? null;
-            $lastTime = $userData['lastTime'] ?? null;
-            $fullName = $userData['fullName'] ?? null;
-            $photo = $userData['photo'] ?? null;
+            // Retrieve the values of id, type, and status fields
+            $userId = $document->id();
             $userType = $userData['type'] ?? null;
-            $status = $userData['status'] ?? null;
-            $spesialis = $userData['spesialis'] ?? null;
-            $createAt = $userData['createAt'] ?? null;
-            $noTelpon = $userData['noTelpon'] ?? null;
-            $pekerjaan = $userData['pekerjaan'] ?? null;
+            $status = $userData['status'] ?? false;
 
-
-            if ($userType === 'patient') {
-                $patientUsers[] = [
-                    'email' => $email,
-                    'lastTime' => $lastTime,
-                    'fullName' => $fullName,
-                    'photo' => $photo,
-                    'type' => $userType,
-                    'status' => $status,
-                    'spesialis' => $spesialis,
-                    'createAt' => $createAt,
-                    'noTelpon' => $noTelpon,
-                    'pekerjaan' => $pekerjaan
-                ];
-            } elseif ($userType === 'doctor') {
-                $doctorUsers[] = [
-                    'email' => $email,
-                    'lastTime' => $lastTime,
-                    'fullName' => $fullName,
-                    'photo' => $photo,
-                    'type' => $userType,
-                    'status' => $status,
-                    'spesialis' => $spesialis,
-                    'createAt' => $createAt,
-                    'noTelpon' => $noTelpon,
-                    'pekerjaan' => $pekerjaan
-                ];
-            }
+            $userStatus[$userType][$userId] = $status;
         }
 
         return response()->json([
-            'pasien' => $patientUsers,
-            'dokter' => $doctorUsers,
+            'userStatus' => $userStatus,
         ]);
     }
+
 
 
     public function export($userId)

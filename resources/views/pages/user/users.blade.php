@@ -19,66 +19,65 @@
                                             Username</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             No. HP</th>
-                                            <th
+                                        <th
                                             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Specialist</th>
-                                            <th
+                                        <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Status</th>
-                                            <th
+                                        <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Registered</th>
-                                            <th class="text-secondary opacity-7"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach ($doctorUsers as $item )
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    @if ($item['photo'])
-                                                        <img src="{{ $item['photo'] }}"
-                                                            class="rounded ratio ratio-1x1 me-4"
-                                                            style="border-radius: 40% object-fit: cover; width: 40px; height: 40px;">
-                                                    @else
-                                                        <img src="{{ asset('assets/img/person.png') }}"
-                                                        class="rounded ratio ratio-1x1 me-4"
-                                                        style="border-radius: 40% object-fit: cover; width: 40px; height: 40px;">
-                                                    @endif
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{$item['fullName']}}</h6>
-                                                    <p class="text-xs text-secondary mb-0">{{$item['email']}}</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary text-xs font-weight-bold">{{$item['noTelpon']}}</span>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{$item['spesialis']}}</p>
-                                            <!-- <p class="text-xs text-secondary mb-0">Organization</p> -->
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">
-                                                @if ($item['status'])
-                                                    Online
-                                                @else
-                                                    Offline
-                                                @endif
-                                            </span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">{{$item['createAt']}}</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                data-toggle="tooltip" data-original-title="Edit user">
-                                                
-                                            </a>
-                                        </td>
+                                        <th class="text-secondary opacity-7"></th>
                                     </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($doctorUsers as $item)
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div>
+                                                        @if ($item['photo'])
+                                                            <img src="{{ $item['photo'] }}"
+                                                                class="rounded ratio ratio-1x1 me-4"
+                                                                style="border-radius: 40% object-fit: cover; width: 40px; height: 40px;">
+                                                        @else
+                                                            <img src="{{ asset('assets/img/person.png') }}"
+                                                                class="rounded ratio ratio-1x1 me-4"
+                                                                style="border-radius: 40% object-fit: cover; width: 40px; height: 40px;">
+                                                        @endif
+                                                    </div>
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $item['fullName'] }}</h6>
+                                                        <p class="text-xs text-secondary mb-0">{{ $item['email'] }}</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    class="text-secondary text-xs font-weight-bold">{{ $item['noTelpon'] }}</span>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">{{ $item['spesialis'] }}</p>
+                                                <!-- <p class="text-xs text-secondary mb-0">Organization</p> -->
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm bg-gradient-success user-status"
+                                                    data-user-id="{{ $item['id'] }}" data-user-type="doctor">
+
+                                                </span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span
+                                                    class="text-secondary text-xs font-weight-bold">{{ $item['createAt'] }}</span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                                                    data-toggle="tooltip" data-original-title="Edit user">
+
+                                                </a>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -87,6 +86,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="card my-4">
@@ -118,58 +118,98 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($patientUsers as $item)
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    @if ($item['photo'])
-                                                        <img src="{{ $item['photo'] }}"
-                                                            class="rounded ratio ratio-1x1 me-4"
-                                                            style="border-radius: 40% object-fit: cover; width: 40px; height: 40px;">
-                                                    @else
-                                                        <img src="{{ asset('assets/img/person.png') }}"
-                                                        class="rounded ratio ratio-1x1 me-4"
-                                                        style="border-radius: 40% object-fit: cover; width: 40px; height: 40px;">
-                                                    @endif
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div>
+                                                        @if ($item['photo'])
+                                                            <img src="{{ $item['photo'] }}"
+                                                                class="rounded ratio ratio-1x1 me-4"
+                                                                style="border-radius: 40% object-fit: cover; width: 40px; height: 40px;">
+                                                        @else
+                                                            <img src="{{ asset('assets/img/person.png') }}"
+                                                                class="rounded ratio ratio-1x1 me-4"
+                                                                style="border-radius: 40% object-fit: cover; width: 40px; height: 40px;">
+                                                        @endif
+                                                    </div>
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $item['fullName'] }}</h6>
+                                                        <p class="text-xs text-secondary mb-0">{{ $item['email'] }}</p>
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{$item['fullName']}}</h6>
-                                                    <p class="text-xs text-secondary mb-0">{{$item['email']}}</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary text-xs font-weight-bold">{{$item['noTelpon']}}</span>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs text-secondary mb-0">{{$item['pekerjaan']}}</p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">
-                                                @if ($item['status'])
-                                                    Online
-                                                @else
-                                                    Offline
-                                                @endif
-                                            </span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">{{$item['createAt']}}</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="{{route('user.export', ['userId' => $item['email']])}}" class="text-secondary font-weight-bold text-xs"
-                                            data-toggle="tooltip" data-original-title="Edit user">
-                                            Download
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    class="text-secondary text-xs font-weight-bold">{{ $item['noTelpon'] }}</span>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs text-secondary mb-0">{{ $item['pekerjaan'] }}</p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm bg-gradient-success user-status"
+                                                    data-user-id="{{ $item['id'] }}" data-user-type="patient">
+
+                                                </span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span
+                                                    class="text-secondary text-xs font-weight-bold">{{ $item['createAt'] }}</span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="{{ route('user.export', ['userId' => $item['email']]) }}"
+                                                    class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
+                                                    data-original-title="Edit user">
+                                                    Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+    <script>
+        $(document).ready(function() {
+            function updateUserStatus(userStatus) {
+                updateStatusByType(userStatus.patient, 'patient');
+                updateStatusByType(userStatus.doctor, 'doctor');
+            }
+
+            function updateStatusByType(userStatus, userType) {
+                $('.user-status[data-user-type="' + userType + '"]').each(function() {
+                    var userId = $(this).data('user-id');
+                    var userStatusValue = userStatus[userId];
+                    var userStatusText = userStatusValue ? 'Online' : 'Offline';
+                    $(this).text(userStatusText);
+                });
+            }
+
+            function fetchUserStatus() {
+                $.ajax({
+                    url: '{{ route('get.status') }}',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        var userStatus = response.userStatus;
+                        updateUserStatus(userStatus);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            }
+
+            fetchUserStatus(); // Memuat status pengguna saat pertama kali halaman dimuat
+
+            setInterval(fetchUserStatus, 2000); // Memuat status pengguna setiap 2 detik (2000 ms)
+        });
+    </script>
+
 @endsection

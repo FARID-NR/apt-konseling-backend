@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function(){
 
     Route::prefix('user')->group(function(){
         Route::get('/', [userController::class, 'read'])->name('user.read');
-        Route::get('/data-online', [userController::class, 'getData']);
+        Route::get('/data-online', [userController::class, 'getData'])->name('get.status');
         Route::get('/export/{userId}', [userController::class, 'export'])->name('user.export');
     });
 
