@@ -69,7 +69,7 @@
                                             </td>
                                             <td class="align-middle text-center">
                                                 <span
-                                                    class="text-secondary text-xs font-weight-bold">{{ $item['createAt'] }}</span>
+                                                    class="text-secondary text-xs font-weight-bold">{{ date('H:i | d M Y', strtotime($item['createAt'])) }}</span>
                                             </td>
                                             <td class="align-middle">
                                                 <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
@@ -153,7 +153,7 @@
                                             </td>
                                             <td class="align-middle text-center">
                                                 <span
-                                                    class="text-secondary text-xs font-weight-bold">{{ $item['createAt'] }}</span>
+                                                    class="text-secondary text-xs font-weight-bold">{{ date('H:i | d M Y', strtotime($item['createAt'])) }}</span>
                                             </td>
                                             <td class="align-middle">
                                                 <a href="{{ route('user.export', ['userId' => $item['email']]) }}"

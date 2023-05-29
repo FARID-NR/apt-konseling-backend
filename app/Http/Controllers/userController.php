@@ -109,12 +109,34 @@ class userController extends Controller
     }
 
 
+    // public function updateData()
+    // {
+    //     // Dapatkan data terbaru dari sumber data Anda
+    //     // Misalnya, menggunakan Firebase Firestore
+
+    //     $collectionRef = $this->firestore->collection('answers');
+    //     $documents = $collectionRef->documents();
+
+    //     foreach ($documents as $document) {
+    //         // Perbarui data sesuai kebutuhan
+    //         $answerData = $document->data();
+    //         $documentRef = $document->reference();
+
+    //         // Contoh: Perbarui data dengan menambahkan properti baru
+    //         $answerData['updated_at'] = date('Y-m-d H:i:s');
+
+    //         // Simpan pembaruan data ke Firestore
+    //         $documentRef->set($answerData);
+    //     }
+    // }
 
     public function export($userId)
     {
         $collectionRef = $this->firestore->collection('answers');
         $documents = $collectionRef->where('pasien', '=', $userId);
         $documents = $documents->documents();
+
+        // $this->updateData();
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
